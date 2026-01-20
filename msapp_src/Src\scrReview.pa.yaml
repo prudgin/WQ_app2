@@ -1,0 +1,90 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  scrReview:
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+    Children:
+      - conReviewRoot:
+          Control: GroupContainer@1.4.0
+          Variant: AutoLayout
+          Properties:
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =If(App.Width < 900, LayoutDirection.Vertical, LayoutDirection.Horizontal)
+            LayoutGap: =16
+            PaddingBottom: =16
+            PaddingLeft: =16
+            PaddingRight: =16
+            PaddingTop: =16
+            Width: =Parent.Width
+          Children:
+            - conReviewNav:
+                Control: GroupContainer@1.4.0
+                Variant: AutoLayout
+                Properties:
+                  Height: =If(App.Width < 900, 72, Parent.Height)
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =If(App.Width < 900, LayoutDirection.Horizontal, LayoutDirection.Vertical)
+                  LayoutGap: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                  Width: =If(App.Width < 900, Parent.Width, 220)
+                Children:
+                  - btnReviewNewReading:
+                      Control: Button@0.0.45
+                      Properties:
+                        Align: =Align.Center
+                        FontSize: =20
+                        Height: =42
+                        OnSelect: =Navigate(scrNewReading, ScreenTransition.None)
+                        Text: ="New Reading"
+                        Width: =If(App.Width < 900, Parent.Width / 2, Parent.Width)
+                        X: =0
+                        Y: =0
+                  - btnReviewHome:
+                      Control: Button@0.0.45
+                      Properties:
+                        Align: =Align.Center
+                        FontSize: =20
+                        Height: =42
+                        OnSelect: =Navigate(scrHome, ScreenTransition.None)
+                        Text: ="Home"
+                        Width: =If(App.Width < 900, Parent.Width / 2, Parent.Width)
+                        X: =0
+                        Y: =0
+            - conReviewMain:
+                Control: GroupContainer@1.4.0
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =16
+                  FillPortions: =1
+                Children:
+                  - lblReviewPlaceholder:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =2
+                        Color: =RGBA(50, 49, 48, 1)
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        FocusedBorderThickness: =4
+                        Font: =Font.'Segoe UI'
+                        Size: =24
+                        Text: ="Review readings"
+                        Width: =Parent.Width
+                        X: =0
+                        Y: =0

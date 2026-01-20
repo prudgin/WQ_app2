@@ -1,0 +1,1317 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  scrNewReading:
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+      OnVisible: |-
+        =Set(varEntryMode, "New");
+        Set(varEditReading, Defaults(WQ_Readings));
+        Set(varDefaultTime, Text(Now(), "HH:mm"));
+        Reset(txtReadingTime);
+        Reset(dpReadingDate);
+    Children:
+      - conNewRoot:
+          Control: GroupContainer@1.4.0
+          Variant: AutoLayout
+          Properties:
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =16
+            PaddingBottom: =16
+            PaddingLeft: =16
+            PaddingRight: =16
+            PaddingTop: =16
+            Width: =Parent.Width
+          Children:
+            - conNewHeader:
+                Control: GroupContainer@1.4.0
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =16
+                  LayoutWrap: =true
+                  LayoutMinHeight: =64
+                Children:
+                  - TextCanvas3:
+                      Control: Text@0.0.51
+                      Properties:
+                        Height: =66
+                        Size: =45
+                        Text: ="New Reading"
+                        Width: =If(App.Width < 900, Parent.Width, 326)
+                        X: =0
+                        Y: =0
+                  - TextCanvas2:
+                      Control: Text@0.0.51
+                      Properties:
+                        Align: ='TextCanvas.Align'.End
+                        Height: =66
+                        Size: =45
+                        Text: |-
+                          =If(
+                              IsBlank(varMyFarm),
+                              "Farm is not set. Go to Home, select a farm, then press Save settings.",
+                              "Farm selected: " & varMyFarm
+                          )
+                        Width: =If(App.Width < 900, Parent.Width, 547)
+                        X: =0
+                        Y: =0
+            - conNewBody:
+                Control: GroupContainer@1.4.0
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Start
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =16
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  LayoutWrap: =true
+                  FillPortions: =1
+                Children:
+                  - conMetaCard:
+                      Control: GroupContainer@1.4.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(230, 230, 230, 1)
+                        BorderThickness: =1
+                        Fill: =RGBA(255, 255, 255, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =12
+                        LayoutMinWidth: =320
+                        PaddingBottom: =16
+                        PaddingLeft: =16
+                        PaddingRight: =16
+                        PaddingTop: =16
+                        FillPortions: =1
+                      Children:
+                        - ddSite:
+                            Control: Classic/DropDown@2.3.1
+                            Properties:
+                              BorderColor: =RGBA(245, 245, 245, 1)
+                              ChevronBackground: =RGBA(245, 245, 245, 1)
+                              ChevronDisabledBackground: =RGBA(242, 242, 241, 0)
+                              ChevronDisabledFill: =RGBA(161, 159, 157, 1)
+                              ChevronFill: =RGBA(50, 49, 48, 1)
+                              ChevronHoverBackground: =RGBA(245, 245, 245, 1)
+                              ChevronHoverFill: =RGBA(50, 49, 48, 1)
+                              Color: =RGBA(50, 49, 48, 1)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                              Fill: =RGBA(245, 245, 245, 1)
+                              Font: =Font.'Segoe UI'
+                              Height: =53
+                              HoverBorderColor: =RGBA(16, 110, 190, 1)
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(245, 245, 245, 1)
+                              Items: =Filter(WQ_Sites, Farm = varMyFarm)
+                              Items.Value: =field_2
+                              OnChange: =Reset(ddUnit)
+                              PaddingBottom: =5
+                              PaddingLeft: =12
+                              PaddingRight: =5
+                              PaddingTop: =5
+                              PressedBorderColor: =RGBA(16, 110, 190, 1)
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(0, 120, 212, 1)
+                              SelectionColor: =RGBA(50, 49, 48, 1)
+                              SelectionFill: =RGBA(0, 120, 212, 1)
+                              Size: =20
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
+                        - ddUnit:
+                            Control: Classic/DropDown@2.3.1
+                            Properties:
+                              BorderColor: =RGBA(245, 245, 245, 1)
+                              ChevronBackground: =RGBA(245, 245, 245, 1)
+                              ChevronDisabledBackground: =RGBA(242, 242, 241, 0)
+                              ChevronDisabledFill: =RGBA(161, 159, 157, 1)
+                              ChevronFill: =RGBA(50, 49, 48, 1)
+                              ChevronHoverBackground: =RGBA(245, 245, 245, 1)
+                              ChevronHoverFill: =RGBA(50, 49, 48, 1)
+                              Color: =RGBA(50, 49, 48, 1)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayMode: |-
+                                =If(
+                                    IsBlank(varMyFarm) || IsBlank(ddSite.Selected.Site),
+                                    DisplayMode.Disabled,
+                                    DisplayMode.Edit
+                                )
+                              Fill: =RGBA(245, 245, 245, 1)
+                              Font: =Font.'Segoe UI'
+                              Height: =53
+                              HoverBorderColor: =RGBA(16, 110, 190, 1)
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(245, 245, 245, 1)
+                              Items: |-
+                                =Filter(
+                                    WQ_Units,
+                                    Farm = varMyFarm && Site = ddSite.Selected.Site
+                                )
+                              Items.Value: =field_3
+                              PaddingBottom: =5
+                              PaddingLeft: =12
+                              PaddingRight: =5
+                              PaddingTop: =5
+                              PressedBorderColor: =RGBA(16, 110, 190, 1)
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(0, 120, 212, 1)
+                              SelectionColor: =RGBA(50, 49, 48, 1)
+                              SelectionFill: =RGBA(0, 120, 212, 1)
+                              Size: =20
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
+                        - lblUnitId:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =RGBA(50, 49, 48, 1)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              Text: |
+                                ="UnitId: " & Coalesce(ddUnit.Selected.UnitId, "")
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
+                        - conInitialsStack:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =8
+                            Children:
+                              - Label3:
+                                  Control: Label@2.5.1
+                                  Group: Group1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Text: ="Your initials"
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                              - txtInitials:
+                                  Control: Classic/TextInput@2.3.2
+                                  Group: Group1
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: =varInitials
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =46
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                        - dpReadingDate:
+                            Control: Classic/DatePicker@2.6.0
+                            Properties:
+                              BorderColor: =RGBA(245, 245, 245, 1)
+                              Color: =RGBA(50, 49, 48, 1)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                              Fill: =RGBA(245, 245, 245, 1)
+                              Font: =Font.'Segoe UI'
+                              Height: =60
+                              IconBackground: =RGBA(0, 120, 212, 1)
+                              IconFill: =RGBA(255, 255, 255, 1)
+                              Language: ="en-AU"
+                              PaddingTop: =5
+                              Size: =20
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
+                        - conTimeStack:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =8
+                            Children:
+                              - Label2:
+                                  Control: Label@2.5.1
+                                  Group: Group3
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Text: ="Time:"
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                              - txtReadingTime:
+                                  Control: Classic/TextInput@2.3.2
+                                  Group: Group3
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: |
+                                      =varDefaultTime
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =56
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                        - btnSaveReading:
+                            Control: Button@0.0.45
+                            Properties:
+                              FontSize: =20
+                              FontWeight: =FontWeight.Normal
+                              Height: =42
+                              OnSelect: |
+                                =Set(varSaveError, "");
+
+                                If(
+                                    IsBlank(varMyFarm),
+                                    Set(varSaveError, "Farm is not set. Go to Home, select a farm, then press Save settings.")
+                                );
+
+                                If(
+                                    IsBlank(varSaveError) && IsBlank(ddSite.Selected.Site),
+                                    Set(varSaveError, "Please select a Site.")
+                                );
+
+                                If(
+                                    IsBlank(varSaveError) && IsBlank(ddUnit.Selected.UnitId),
+                                    Set(varSaveError, "Please select a Unit.")
+                                );
+
+                                If(
+                                    IsBlank(varSaveError) && IsBlank(Trim(txtInitials.Text)),
+                                    Set(varSaveError, "Please enter initials.")
+                                );
+
+                                If(
+                                    IsBlank(varSaveError) && IsBlank(dpReadingDate.SelectedDate),
+                                    Set(varSaveError, "Please select a date.")
+                                );
+
+                                If(
+                                    IsBlank(varSaveError) &&
+                                    !(
+                                        IsMatch(txtReadingTime.Text, "^\d\d:\d\d$") &&
+                                        Value(Left(txtReadingTime.Text, 2)) < 24 &&
+                                        Value(Mid(txtReadingTime.Text, 4, 2)) < 60
+                                    ),
+                                    Set(varSaveError, "Time must be in HH:mm (e.g., 07:30).")
+                                );
+
+                                /* Numeric validation (only when a value is provided) */
+                                If(IsBlank(varSaveError) && !IsBlank(Trim(txtAlkalinity.Text))   && !IsNumeric(txtAlkalinity.Text),   Set(varSaveError, "Alkalinity must be a number."));
+                                If(IsBlank(varSaveError) && !IsBlank(Trim(txtGHardness.Text))    && !IsNumeric(txtGHardness.Text),    Set(varSaveError, "G HARD must be a number."));
+                                If(IsBlank(varSaveError) && !IsBlank(Trim(txtpH.Text))           && !IsNumeric(txtpH.Text),           Set(varSaveError, "pH must be a number."));
+                                If(IsBlank(varSaveError) && !IsBlank(Trim(txtPhosphorus.Text))   && !IsNumeric(txtPhosphorus.Text),   Set(varSaveError, "PHOS must be a number."));
+                                If(IsBlank(varSaveError) && !IsBlank(Trim(txtTAN.Text))          && !IsNumeric(txtTAN.Text),          Set(varSaveError, "AMMO (TAN) must be a number."));
+                                If(IsBlank(varSaveError) && !IsBlank(Trim(txtNitrite.Text))      && !IsNumeric(txtNitrite.Text),      Set(varSaveError, "NITRITE (NO2) must be a number."));
+                                If(IsBlank(varSaveError) && !IsBlank(Trim(txtNitrate.Text))      && !IsNumeric(txtNitrate.Text),      Set(varSaveError, "NITRATE (NO3) must be a number."));
+                                If(IsBlank(varSaveError) && !IsBlank(Trim(txtFreeCopper1.Text))  && !IsNumeric(txtFreeCopper1.Text),  Set(varSaveError, "Free Copper 1 must be a number."));
+                                If(IsBlank(varSaveError) && !IsBlank(Trim(txtFreeCopper2.Text))  && !IsNumeric(txtFreeCopper2.Text),  Set(varSaveError, "Free Copper 2 must be a number."));
+                                If(IsBlank(varSaveError) && !IsBlank(Trim(txtTurbidityNTU.Text)) && !IsNumeric(txtTurbidityNTU.Text), Set(varSaveError, "Turbidity must be a number."));
+                                If(IsBlank(varSaveError) && !IsBlank(Trim(txtSalinity.Text))     && !IsNumeric(txtSalinity.Text),     Set(varSaveError, "Salinity must be a number."));
+                                If(IsBlank(varSaveError) && !IsBlank(Trim(txtCaHardness.Text))   && !IsNumeric(txtCaHardness.Text),   Set(varSaveError, "Ca Hardness must be a number."));
+                                If(IsBlank(varSaveError) && !IsBlank(Trim(txtChloride.Text))     && !IsNumeric(txtChloride.Text),     Set(varSaveError, "Chloride must be a number."));
+                                If(IsBlank(varSaveError) && !IsBlank(Trim(txtTemperature.Text))  && !IsNumeric(txtTemperature.Text),  Set(varSaveError, "Temperature must be a number."));
+
+                                If(
+                                    IsBlank(varSaveError) &&
+                                    IsBlank(Trim(txtAlkalinity.Text)) &&
+                                    IsBlank(Trim(txtGHardness.Text)) &&
+                                    IsBlank(Trim(txtpH.Text)) &&
+                                    IsBlank(Trim(txtPhosphorus.Text)) &&
+                                    IsBlank(Trim(txtTAN.Text)) &&
+                                    IsBlank(Trim(txtNitrite.Text)) &&
+                                    IsBlank(Trim(txtNitrate.Text)) &&
+                                    IsBlank(Trim(txtFreeCopper1.Text)) &&
+                                    IsBlank(Trim(txtFreeCopper2.Text)) &&
+                                    IsBlank(Trim(txtTurbidityNTU.Text)) &&
+                                    IsBlank(Trim(txtSalinity.Text)) &&
+                                    IsBlank(Trim(txtCaHardness.Text)) &&
+                                    IsBlank(Trim(txtChloride.Text)) &&
+                                    IsBlank(Trim(txtTemperature.Text)),
+                                    Set(varSaveError, "Please enter at least one reading value.")
+                                );
+
+
+                                If(
+                                    !IsBlank(varSaveError),
+                                    Notify(varSaveError, NotificationType.Error),
+
+                                    With(
+                                        {
+                                            dt: Date(
+                                                    Year(dpReadingDate.SelectedDate),
+                                                    Month(dpReadingDate.SelectedDate),
+                                                    Day(dpReadingDate.SelectedDate)
+                                                )
+                                                + Time(
+                                                    Value(Left(txtReadingTime.Text, 2)),
+                                                    Value(Mid(txtReadingTime.Text, 4, 2)),
+                                                    0
+                                                ),
+                                            initials: Trim(txtInitials.Text),
+                                            notesText: Trim(txtNotes.Text)
+                                        },
+
+                                        Set(
+                                            varSavedReading,
+                                            Patch(
+                                                WQ_Readings,
+                                                Defaults(WQ_Readings),
+                                                {
+                                                    Title: Text(GUID()),
+                                                    Farm: varMyFarm,
+                                                    Site: ddSite.Selected.Site,
+                                                    Unit: ddUnit.Selected.Unit,
+                                                    UnitId: ddUnit.Selected.UnitId,
+                                                    ReadingDate: dpReadingDate.SelectedDate,
+                                                    ReadingTime: txtReadingTime.Text,
+                                                    ReadingDateTime: dt,
+                                                    EnteredByInitials: initials,
+
+                                                    /* Parameters */
+                                                    Alkalinity:   If(IsBlank(Trim(txtAlkalinity.Text)),   Blank(), Value(txtAlkalinity.Text)),
+                                                    GHardness:    If(IsBlank(Trim(txtGHardness.Text)),    Blank(), Value(txtGHardness.Text)),
+                                                    pH:           If(IsBlank(Trim(txtpH.Text)),           Blank(), Value(txtpH.Text)),
+                                                    Phosphorus:   If(IsBlank(Trim(txtPhosphorus.Text)),   Blank(), Value(txtPhosphorus.Text)),
+                                                    TAN:          If(IsBlank(Trim(txtTAN.Text)),          Blank(), Value(txtTAN.Text)),
+                                                    Nitrite:      If(IsBlank(Trim(txtNitrite.Text)),      Blank(), Value(txtNitrite.Text)),
+                                                    Nitrate:      If(IsBlank(Trim(txtNitrate.Text)),      Blank(), Value(txtNitrate.Text)),
+                                                    FreeCopper1:  If(IsBlank(Trim(txtFreeCopper1.Text)),  Blank(), Value(txtFreeCopper1.Text)),
+                                                    FreeCopper2:  If(IsBlank(Trim(txtFreeCopper2.Text)),  Blank(), Value(txtFreeCopper2.Text)),
+                                                    TurbidityNTU: If(IsBlank(Trim(txtTurbidityNTU.Text)), Blank(), Value(txtTurbidityNTU.Text)),
+                                                    Salinity:     If(IsBlank(Trim(txtSalinity.Text)),     Blank(), Value(txtSalinity.Text)),
+                                                    CaHardness:   If(IsBlank(Trim(txtCaHardness.Text)),   Blank(), Value(txtCaHardness.Text)),
+                                                    Chloride:     If(IsBlank(Trim(txtChloride.Text)),     Blank(), Value(txtChloride.Text)),
+                                                    Temperature:  If(IsBlank(Trim(txtTemperature.Text)),  Blank(), Value(txtTemperature.Text)),
+
+                                                    Notes: If(IsBlank(notesText), Blank(), notesText)
+                                                }
+                                            )
+                                        );
+
+                                        Set(varInitials, initials);
+                                        Notify("Saved", NotificationType.Success);
+
+                                        /* Refresh defaults for next entry */
+                                        Set(varDefaultTime, Text(Now(), "HH:mm"));
+                                        Reset(txtReadingTime);
+                                        Reset(dpReadingDate);
+
+                                        /* Clear parameter inputs + Notes */
+                                        Reset(txtAlkalinity);
+                                        Reset(txtGHardness);
+                                        Reset(txtpH);
+                                        Reset(txtPhosphorus);
+                                        Reset(txtTAN);
+                                        Reset(txtNitrite);
+                                        Reset(txtNitrate);
+                                        Reset(txtFreeCopper1);
+                                        Reset(txtFreeCopper2);
+                                        Reset(txtTurbidityNTU);
+                                        Reset(txtSalinity);
+                                        Reset(txtCaHardness);
+                                        Reset(txtChloride);
+                                        Reset(txtTemperature);
+                                        Reset(txtNotes)
+                                    )
+                                );
+                              Text: ="Save"
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
+                        - ButtonCanvas4_1:
+                            Control: Button@0.0.45
+                            Properties:
+                              FontSize: =20
+                              Height: =42
+                              OnSelect: =Navigate(scrReview)
+                              Text: ="Review"
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
+                        - ButtonCanvas3_1:
+                            Control: Button@0.0.45
+                            Properties:
+                              FontSize: =20
+                              Height: =42
+                              OnSelect: =Navigate(scrHome, ScreenTransition.None)
+                              Text: ="Home"
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
+                  - conParamsCard1:
+                      Control: GroupContainer@1.4.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(230, 230, 230, 1)
+                        BorderThickness: =1
+                        Fill: =RGBA(255, 255, 255, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =12
+                        LayoutMinWidth: =320
+                        PaddingBottom: =16
+                        PaddingLeft: =16
+                        PaddingRight: =16
+                        PaddingTop: =16
+                        FillPortions: =1
+                      Children:
+                        - conRowAlkalinity:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                            Children:
+                              - lblParam:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Size: =20
+                                    Text: ="Alkalinity"
+                                    Width: =160
+                                    X: =0
+                                    Y: =0
+                              - txtAlkalinity:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: =Blank()
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Format: =TextFormat.Number
+                                    HintText: ="mg/l CaCO3"
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                    FillPortions: =1
+                        - conRowGHardness:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                            Children:
+                              - lblParam_1:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Size: =20
+                                    Text: ="G HARD"
+                                    Width: =160
+                                    X: =0
+                                    Y: =0
+                              - txtGHardness:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: =Blank()
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Format: =TextFormat.Number
+                                    HintText: ="mg/l CaCO3"
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                    FillPortions: =1
+                        - conRowPH:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                            Children:
+                              - lblParam_4:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Size: =20
+                                    Text: ="pH"
+                                    Width: =160
+                                    X: =0
+                                    Y: =0
+                              - txtpH:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: =Blank()
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Format: =TextFormat.Number
+                                    HintText: ="power of 10"
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                    FillPortions: =1
+                        - conRowPhosphorus:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                            Children:
+                              - lblParam_3:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Size: =20
+                                    Text: ="PHOS"
+                                    Width: =160
+                                    X: =0
+                                    Y: =0
+                              - txtPhosphorus:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: =Blank()
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Format: =TextFormat.Number
+                                    HintText: ="mg/l"
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                    FillPortions: =1
+                        - conRowTAN:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                            Children:
+                              - lblParam_2:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Size: =20
+                                    Text: ="AMMO (TAN)"
+                                    Width: =160
+                                    X: =0
+                                    Y: =0
+                              - txtTAN:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: =Blank()
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Format: =TextFormat.Number
+                                    HintText: ="mg/l"
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                    FillPortions: =1
+                        - conRowNitrite:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                            Children:
+                              - lblParam_5:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Size: =20
+                                    Text: ="NITRITE (NO2)"
+                                    Width: =160
+                                    X: =0
+                                    Y: =0
+                              - txtNitrite:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: =Blank()
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Format: =TextFormat.Number
+                                    HintText: ="mg/l"
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                    FillPortions: =1
+                        - conRowNitrate:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                            Children:
+                              - lblParam_6:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Size: =20
+                                    Text: ="NITRATE (NO3)"
+                                    Width: =160
+                                    X: =0
+                                    Y: =0
+                              - txtNitrate:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: =Blank()
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Format: =TextFormat.Number
+                                    HintText: ="mg/l"
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                    FillPortions: =1
+                  - conParamsCard2:
+                      Control: GroupContainer@1.4.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(230, 230, 230, 1)
+                        BorderThickness: =1
+                        Fill: =RGBA(255, 255, 255, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =12
+                        LayoutMinWidth: =320
+                        PaddingBottom: =16
+                        PaddingLeft: =16
+                        PaddingRight: =16
+                        PaddingTop: =16
+                        FillPortions: =1
+                      Children:
+                        - conRowFreeCopper1:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                            Children:
+                              - lblParam_8:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Size: =20
+                                    Text: ="Free Copper 1"
+                                    Width: =160
+                                    X: =0
+                                    Y: =0
+                              - txtFreeCopper1:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: =Blank()
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Format: =TextFormat.Number
+                                    HintText: ="mg/l"
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                    FillPortions: =1
+                        - conRowFreeCopper2:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                            Children:
+                              - lblParam_7:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Size: =20
+                                    Text: ="Free Copper 2"
+                                    Width: =160
+                                    X: =0
+                                    Y: =0
+                              - txtFreeCopper2:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: =Blank()
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Format: =TextFormat.Number
+                                    HintText: ="mg/l"
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                    FillPortions: =1
+                        - conRowTurbidity:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                            Children:
+                              - lblParam_12:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Size: =20
+                                    Text: ="Turbidity"
+                                    Width: =160
+                                    X: =0
+                                    Y: =0
+                              - txtTurbidityNTU:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: =Blank()
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Format: =TextFormat.Number
+                                    HintText: ="NTU"
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                    FillPortions: =1
+                        - conRowSalinity:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                            Children:
+                              - lblParam_13:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Size: =20
+                                    Text: ="Salinity"
+                                    Width: =160
+                                    X: =0
+                                    Y: =0
+                              - txtSalinity:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: =Blank()
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Format: =TextFormat.Number
+                                    HintText: ="ppt"
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                    FillPortions: =1
+                        - conRowCaHardness:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                            Children:
+                              - lblParam_9:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Size: =20
+                                    Text: ="Ca Hardness"
+                                    Width: =160
+                                    X: =0
+                                    Y: =0
+                              - txtCaHardness:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: =Blank()
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Format: =TextFormat.Number
+                                    HintText: ="mg/l CaCO3"
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                    FillPortions: =1
+                        - conRowChloride:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                            Children:
+                              - lblParam_10:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Size: =20
+                                    Text: ="Chloride"
+                                    Width: =160
+                                    X: =0
+                                    Y: =0
+                              - txtChloride:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: =Blank()
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Format: =TextFormat.Number
+                                    HintText: ="mg/l Cl"
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                    FillPortions: =1
+                        - conRowTemperature:
+                            Control: GroupContainer@1.4.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                            Children:
+                              - lblParam_11:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Size: =20
+                                    Text: ="Temperature"
+                                    Width: =160
+                                    X: =0
+                                    Y: =0
+                              - txtTemperature:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(245, 245, 245, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Default: =Blank()
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Format: =TextFormat.Number
+                                    HintText: ="°C"
+                                    HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(255, 255, 255, 1)
+                                    PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(255, 255, 255, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Size: =20
+                                    Width: =Parent.Width
+                                    X: =0
+                                    Y: =0
+                                    FillPortions: =1
+            - conNewFooter:
+                Control: GroupContainer@1.4.0
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =16
+                  Height: =120
+                Children:
+                  - lblParam_14:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =2
+                        Color: =RGBA(50, 49, 48, 1)
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        FocusedBorderThickness: =4
+                        Font: =Font.'Segoe UI'
+                        Size: =20
+                        Text: ="Notes"
+                        Width: =100
+                        X: =0
+                        Y: =0
+                  - txtNotes:
+                      Control: Classic/TextInput@2.3.2
+                      Properties:
+                        BorderColor: =RGBA(245, 245, 245, 1)
+                        Color: =RGBA(50, 49, 48, 1)
+                        Default: =Blank()
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        DisabledFill: =RGBA(242, 242, 241, 0)
+                        DisplayMode: =If(IsBlank(varMyFarm), DisplayMode.Disabled, DisplayMode.Edit)
+                        Font: =Font.'Segoe UI'
+                        HintText: ="Type notes here"
+                        HoverBorderColor: =RGBA(16, 110, 190, 1)
+                        HoverColor: =RGBA(50, 49, 48, 1)
+                        HoverFill: =RGBA(255, 255, 255, 1)
+                        PressedBorderColor: =RGBA(0, 120, 212, 1)
+                        PressedColor: =RGBA(50, 49, 48, 1)
+                        PressedFill: =RGBA(255, 255, 255, 1)
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =20
+                        Width: =Parent.Width
+                        X: =0
+                        Y: =0
+                        FillPortions: =1

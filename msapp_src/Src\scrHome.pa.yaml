@@ -1,0 +1,216 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  scrHome:
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+      OnHidden: =false
+      OnVisible: |-
+        =Set(varUserEmail, Lower(User().Email));
+
+        If(
+            IsBlank(varMyFarm),
+            Set(
+                varUserPref,
+                LookUp(
+                    WQ_UserPreferences,
+                    UserEmail = varUserEmail
+                )
+            );
+            If(
+                !IsBlank(varUserPref),
+                Set(varMyFarm, varUserPref.MyFarm);
+                Set(varRole, Coalesce(varUserPref.Role, "Worker"))
+            )
+        );
+    Children:
+      - conHomeRoot:
+          Control: GroupContainer@1.4.0
+          Variant: AutoLayout
+          Properties:
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =If(App.Width < 900, LayoutDirection.Vertical, LayoutDirection.Horizontal)
+            LayoutGap: =16
+            PaddingBottom: =16
+            PaddingLeft: =16
+            PaddingRight: =16
+            PaddingTop: =16
+            Width: =Parent.Width
+          Children:
+            - conHomeNav:
+                Control: GroupContainer@1.4.0
+                Variant: AutoLayout
+                Properties:
+                  Height: =If(App.Width < 900, 72, Parent.Height)
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =If(App.Width < 900, LayoutDirection.Horizontal, LayoutDirection.Vertical)
+                  LayoutGap: =16
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                  Width: =If(App.Width < 900, Parent.Width, 220)
+                Children:
+                  - ButtonCanvas3:
+                      Control: Button@0.0.45
+                      Properties:
+                        Align: =Align.Center
+                        FontSize: =20
+                        Height: =42
+                        OnSelect: |-
+                          =Set(varEntryMode, "New");
+                          Set(varEditReading, Defaults(WQ_Readings));
+                          Navigate(scrNewReading, ScreenTransition.None);
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: ="New Reading"
+                        VerticalAlign: =VerticalAlign.Middle
+                        Width: =If(App.Width < 900, Parent.Width / 2, Parent.Width)
+                        X: =0
+                        Y: =0
+                  - ButtonCanvas4:
+                      Control: Button@0.0.45
+                      Properties:
+                        Align: =Align.Center
+                        FontSize: =20
+                        Height: =42
+                        OnSelect: =Navigate(scrReview)
+                        Text: ="Review"
+                        Width: =If(App.Width < 900, Parent.Width / 2, Parent.Width)
+                        X: =0
+                        Y: =0
+            - conHomeMain:
+                Control: GroupContainer@1.4.0
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =16
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                  Width: =Parent.Width
+                  FillPortions: =1
+                Children:
+                  - conHomeCard:
+                      Control: GroupContainer@1.4.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(230, 230, 230, 1)
+                        BorderThickness: =1
+                        Fill: =RGBA(255, 255, 255, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =16
+                        PaddingBottom: =24
+                        PaddingLeft: =24
+                        PaddingRight: =24
+                        PaddingTop: =24
+                        Width: =Min(Parent.Width, 700)
+                        AlignInContainer: =AlignInContainer.Center
+                      Children:
+                        - Label1_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =RGBA(50, 49, 48, 1)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              Height: =68
+                              Size: =25
+                              Text: |-
+                                ="Saved farm selection: " & Coalesce(varMyFarm, "(not set)")
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
+                        - TextCanvas1_1:
+                            Control: Text@0.0.51
+                            Properties:
+                              Align: ='TextCanvas.Align'.Center
+                              AlignInContainer: =AlignInContainer.Center
+                              Height: =52
+                              Size: =18
+                              Text: ="Please select your farm"
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
+                        - ddMyFarm_1:
+                            Control: Classic/DropDown@2.3.1
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: =RGBA(245, 245, 245, 1)
+                              ChevronBackground: =RGBA(245, 245, 245, 1)
+                              ChevronDisabledBackground: =RGBA(242, 242, 241, 0)
+                              ChevronDisabledFill: =RGBA(161, 159, 157, 1)
+                              ChevronFill: =RGBA(50, 49, 48, 1)
+                              ChevronHoverBackground: =RGBA(245, 245, 245, 1)
+                              ChevronHoverFill: =RGBA(50, 49, 48, 1)
+                              Color: =RGBA(50, 49, 48, 1)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              Fill: =RGBA(245, 245, 245, 1)
+                              Font: =Font.'Segoe UI'
+                              HoverBorderColor: =RGBA(16, 110, 190, 1)
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(245, 245, 245, 1)
+                              Items: =Sort(WQ_Farms, Farm, SortOrder.Ascending)
+                              Items.Value: =field_1
+                              OnChange: =
+                              PaddingBottom: =5
+                              PaddingLeft: =12
+                              PaddingRight: =5
+                              PaddingTop: =5
+                              PressedBorderColor: =RGBA(16, 110, 190, 1)
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(0, 120, 212, 1)
+                              SelectionColor: =RGBA(50, 49, 48, 1)
+                              SelectionFill: =RGBA(0, 120, 212, 1)
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
+                        - ButtonCanvas1_1:
+                            Control: Button@0.0.45
+                            Properties:
+                              FontSize: =20
+                              Height: =42
+                              OnSelect: |-
+                                =Patch(
+                                    WQ_UserPreferences,
+                                    Coalesce(
+                                        LookUp(WQ_UserPreferences, UserEmail = varUserEmail),
+                                        Defaults(WQ_UserPreferences)
+                                    ),
+                                    {
+                                        Title: varUserEmail,
+                                        UserEmail: varUserEmail,
+                                        MyFarm: ddMyFarm_1.Selected.Farm,
+                                        Role: "Worker"
+                                    }
+                                );
+
+                                Set(varMyFarm, ddMyFarm_1.Selected.Farm);
+                              Text: ="Save farm selection"
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
